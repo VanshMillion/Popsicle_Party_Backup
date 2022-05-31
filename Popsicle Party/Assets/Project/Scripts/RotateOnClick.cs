@@ -47,12 +47,12 @@ public class RotateOnClick : MonoBehaviour
             IceGrinderController.Instance.GrinderRunning();
             HandController.Instance.HideHandPanel();
         }
-        //else
-        //{
-        //    AllBools.Instance.isHandleMoving = false;
-        //    speed = 0;
-        //    IceGrinderController.Instance.GrinderStop();
-        //    HandController.Instance.CupClick();
-        //}
+        else
+        {
+            AllBools.Instance.isHandleMoving = false;
+            speed = 0;
+            IceGrinderController.Instance.GrinderStop();
+            //HandController.Instance.CupClick();
+        }
     }
 }

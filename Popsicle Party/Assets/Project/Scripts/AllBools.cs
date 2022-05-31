@@ -11,7 +11,8 @@ public class AllBools : MonoBehaviour
     [HideInInspector] public bool isHandleMoving;
     [HideInInspector] public bool isCupLocked;
     [HideInInspector] public bool isPopsicleLocked;
-    [SerializeField] public bool isReadyForPaint;
+    [HideInInspector] public bool isReadyForPaint;
+    [HideInInspector] public bool isPaintDone;
 
     void Awake()
     {
@@ -29,5 +30,6 @@ public class AllBools : MonoBehaviour
         isCupLocked = true;
         isPopsicleLocked = true;
         isReadyForPaint = false;
+        isPaintDone = false;
     }
 }

@@ -109,6 +109,9 @@ public class PaintShooter : MonoBehaviour
 
 	void Shoot()
     {
-		Instantiate(paintPrefab, nozzle.transform.position, Quaternion.identity);
+		if(AllBools.Instance.isReadyForPaint == true && AllBools.Instance.isPaintDone == false)
+        {
+			Instantiate(paintPrefab, nozzle.transform.position, Quaternion.identity);
+		}
     }
 }

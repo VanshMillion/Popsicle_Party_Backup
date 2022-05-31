@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject doneButton;
 
     [SerializeField] GameObject paintPanel;
+    [SerializeField] GameObject winPanel;
+    [SerializeField] GameObject fadePanel;
 
     [SerializeField] GameObject blurBG;
 
@@ -34,11 +38,14 @@ public class GameManager : MonoBehaviour
 
         eraseButton.SetActive(false);
         doneButton.SetActive(false);
+
+        blurBG.SetActive(false);
+        winPanel.SetActive(false);
     }
 
     void Update()
     {
-        if(AllBools.Instance.isReadyForPaint == true)
+        if(AllBools.Instance.isReadyForPaint == true && AllBools.Instance.isPaintDone == false)
         {
             ShowPaintStuffs();
         }
@@ -88,7 +95,6 @@ public class GameManager : MonoBehaviour
 
             eraseButton.SetActive(false);
             doneButton.SetActive(false);
-            blurBG.SetActive(false);
         }
     }
 
@@ -108,8 +114,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void PaintDone()
+    {
+        AllBools.Instance.isPaintDone = true;
+
+        HidePaintStuffs();
+
+        if(winPanel.activeInHierarchy == false)
+        {
+            winPanel.SetActive(true);
+        }
+    }
+
     public void ErasePaint()
     {
         PaintTarget.ClearAllPaint();
+    }
+
+    public void FadeScreen()
+    {
+        if(fadePanel.activeInHierarchy == false)
+        {
+            fadePanel.SetActive(true);
+        }
+
+        Image fadeImg = fadePanel.GetComponent<Image>();
+
+        fadeImg.DOFade(1.0f, 0.4f).OnComplete(() => {
+            fadeImg.DOFade(0f, 0.8f).OnComplete(() => {
+                fadePanel.SetActive(false);
+            });
+        });
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

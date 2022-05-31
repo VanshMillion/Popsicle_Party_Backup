@@ -47,9 +47,12 @@ public class DragDrop : MonoBehaviour
         {
             if (obj == ObjectType.ice) 
             {
-                transform.position = GetMouseAsWorldPoint() + mOffset;
-                HandController.Instance.HideHandPanel();
-                HandController.Instance.LidClick();
+                if(AllBools.Instance.isLidLocked == false)
+                {
+                    transform.position = GetMouseAsWorldPoint() + mOffset;
+                    HandController.Instance.HideHandPanel();
+                    HandController.Instance.LidClick();
+                }
             }
 
             if(obj == ObjectType.stick && gameObject.GetComponent<StickController>().isFixed == false)

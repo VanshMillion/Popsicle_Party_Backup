@@ -77,6 +77,7 @@ public class MoveOnClick : MonoBehaviour
             if (isOnTarget == false)
             {
                 HandController.Instance.HideHandPanel();
+                GameManager.Instance.FadeScreen();
 
                 transform.DOMove(targetPos, 0.4f).OnComplete(() => {
                     isOnTarget = true;
