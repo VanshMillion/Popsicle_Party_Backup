@@ -9,9 +9,9 @@ public class IceGrinderController : MonoBehaviour
     [SerializeField] ParticleSystem snowParticle;
     [SerializeField] GameObject snowObj;
 
-    [SerializeField] MoveOnClick moveOnClick;
+    //[SerializeField] MoveOnClick moveOnClick;
 
-    private Vector3 maxSize = new Vector3(0.9f, 0.9f, 0.9f);
+    private Vector3 maxSize = new Vector3(0.16f, 0.2f, 0.16f);
 
     void Awake()
     {
@@ -23,12 +23,12 @@ public class IceGrinderController : MonoBehaviour
 
     void Update()
     {
-        StopIncreasingSize();
+        //StopIncreasingSize();
     }
 
     public void GrinderRunning()
     {
-        if(snowParticle.isPlaying == false)
+        if (snowParticle.isPlaying == false)
         {
             snowParticle.Play();
         }
@@ -36,7 +36,7 @@ public class IceGrinderController : MonoBehaviour
 
     public void GrinderStop()
     {
-        if(snowParticle.isPlaying == true)
+        if (snowParticle.isPlaying == true)
         {
             snowParticle.Stop();
         }
@@ -44,7 +44,7 @@ public class IceGrinderController : MonoBehaviour
 
     public void IncreaseSnowSize()
     {
-        if(snowObj.transform.localScale.x < maxSize.x)
+        if (snowObj.transform.localScale.x < maxSize.x)
         {
             snowObj.transform.localScale += new Vector3(0.0003f, 0, 0);
         }
@@ -59,18 +59,18 @@ public class IceGrinderController : MonoBehaviour
             snowObj.transform.localScale += new Vector3(0, 0, 0.001f);
         }
     }
-    
-    void StopIncreasingSize()
-    {
-        if(snowObj.transform.localScale.z > 0.9f && AllBools.Instance.isCupLocked == true)
-        {
-            if(AllBools.Instance.isHandleMoving == true)
-            {
-                HandController.Instance.CupClick();
-            }
 
-            AllBools.Instance.isHandleMoving = false;
-            AllBools.Instance.isCupLocked = false;
-        }
-    }
+    //void StopIncreasingSize()
+    //{
+    //    if(snowObj.transform.localScale.z > 0.9f && AllBools.Instance.isCupLocked == true)
+    //    {
+    //        if(AllBools.Instance.isHandleMoving == true)
+    //        {
+    //            HandController.Instance.CupClick();
+    //        }
+
+    //        AllBools.Instance.isHandleMoving = false;
+    //        AllBools.Instance.isCupLocked = false;
+    //    }
+    //}
 }

@@ -11,6 +11,7 @@ public class IceChecker : MonoBehaviour
         if(tag == "Ice")
         {
             AllBools.Instance.isIceReady = true;
+            other.gameObject.transform.parent = transform.parent;
         }
     }
 }

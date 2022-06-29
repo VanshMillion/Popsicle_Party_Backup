@@ -16,34 +16,38 @@ public class StickController : MonoBehaviour
         snowObj = GameObject.FindGameObjectWithTag("Snow");
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        string tag = other.tag;
-        if(tag == "StickZone")
-        {
-            MoveStick();
-            other.gameObject.SetActive(false);
-            AllBools.Instance.isPopsicleLocked = false;
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    string tag = other.tag;
+    //    if(tag == "StickZone")
+    //    {
+    //        MoveStick();
+    //        other.gameObject.SetActive(false);
+    //        AllBools.Instance.isPopsicleLocked = false;
+    //    }
+    //}
 
     void MoveStick()
     {
-        if (transform.gameObject.GetComponent<DragDrop>().isSelected == true)
-        {
-            transform.gameObject.GetComponent<DragDrop>().isSelected = false;
+        transform.DOMove(targetPos, 0.3f).OnComplete(() => {
+            isFixed = true;
+        });
 
-            Rigidbody rb = gameObject.GetComponent<Rigidbody>();
-            rb.isKinematic = true;
-            rb.useGravity = false;
+        //if (transform.gameObject.GetComponent<DragDrop>().isSelected == true)
+        //{
+        //    transform.gameObject.GetComponent<DragDrop>().isSelected = false;
 
-            transform.DOMove(targetPos, 0.3f).OnComplete(() => {
-                isFixed = true;
-            });
-            transform.rotation = Quaternion.Euler(90f, 0, 0);
-            transform.parent = snowObj.transform;
+        //    Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        //    rb.isKinematic = true;
+        //    rb.useGravity = false;
 
-            HandController.Instance.PopsicleClick();
-        }
+        //    transform.DOMove(targetPos, 0.3f).OnComplete(() => {
+        //        isFixed = true;
+        //    });
+        //    transform.rotation = Quaternion.Euler(90f, 0, 0);
+        //    transform.parent = snowObj.transform;
+
+        //    HandController.Instance.PopsicleClick();
+        //}
     }
 }

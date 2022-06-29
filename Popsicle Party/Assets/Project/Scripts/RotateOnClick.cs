@@ -40,12 +40,12 @@ public class RotateOnClick : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (AllBools.Instance.isHandleMoving == false && AllBools.Instance.isLidLocked == true)
+        if (AllBools.Instance.isHandleMoving == false /*&& AllBools.Instance.isLidLocked == true*/)
         {
             AllBools.Instance.isHandleMoving = true;
             speed = 80.0f;
             IceGrinderController.Instance.GrinderRunning();
-            HandController.Instance.HideHandPanel();
+            //HandController.Instance.HideHandPanel();
         }
         else
         {

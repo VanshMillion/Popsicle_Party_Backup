@@ -50,8 +50,8 @@ public class DragDrop : MonoBehaviour
                 if(AllBools.Instance.isLidLocked == false)
                 {
                     transform.position = GetMouseAsWorldPoint() + mOffset;
-                    HandController.Instance.HideHandPanel();
-                    HandController.Instance.LidClick();
+                    //HandController.Instance.HideHandPanel();
+                    //HandController.Instance.LidClick();
                 }
             }
 

@@ -5,29 +5,20 @@ using UnityEngine.UI;
 
 public class FlavourManager : MonoBehaviour
 {
-    [SerializeField] GameObject paintBallPref;
+    [SerializeField] GameObject paintParticlePref;
 
     [SerializeField] Color color;
+    [SerializeField] Material paintParticleMat;
     //[SerializeField] Renderer snowRenderer;
 
-    [SerializeField] Image bottleImg;
+    //[Range(0, 6)]
+    //[SerializeField] int channel;
 
-    [Range(0, 4)]
-    [SerializeField] int channel;
-
-    Brush brush;
-
-    void Start()
-    {
-        brush = paintBallPref.GetComponent<CollisionPainter>().brush;
-
-        brush.splatChannel = 0;
-    }
+    [SerializeField] PaintIn3D.P3dPaintSphere brush;
 
     public void ChangeColor()
     {
-        brush.splatChannel = channel;
-
-        bottleImg.color = color;
+        paintParticleMat.color = color;
+        brush.Color = color;
     }
 }

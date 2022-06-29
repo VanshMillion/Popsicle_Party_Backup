@@ -18,6 +18,7 @@ public class MoveOnClick : MonoBehaviour
     [SerializeField] Vector3 startPos;
     [SerializeField] Vector3 targetPos;
 
+    [SerializeField] GameObject lidParent;
     [SerializeField] GameObject popsicleParent;
 
     bool isOnTarget;
@@ -29,19 +30,32 @@ public class MoveOnClick : MonoBehaviour
         isOnTarget = false;
     }
 
+    //private void Update()
+    //{
+    //    if (obj == ObjectType.popsicle /*&& AllBools.Instance.isPopsicleLocked == false*/)
+    //    {
+    //        transform.DOMove(targetPos, 0.4f);
+    //    }
+    //}
+
+
     void OnMouseDown()
     {
-        if (obj == ObjectType.crusherLid && AllBools.Instance.isIceReady == true && AllBools.Instance.isLidLocked == false)
+        if (obj == ObjectType.crusherLid /*&& AllBools.Instance.isIceReady == true && AllBools.Instance.isLidLocked == false*/)
         {
             if (isOnTarget == false)
             {
-                HandController.Instance.HideHandPanel();
+                //HandController.Instance.HideHandPanel();
 
                 transform.DOMove(targetPos, 0.4f).OnComplete(() => {
                     isOnTarget = true;
-                    AllBools.Instance.isLidLocked = true;
-                    HandController.Instance.HandleClick();
+
+                    transform.parent = lidParent.transform;
+                    //AllBools.Instance.isLidLocked = true;
+                    //HandController.Instance.HandleClick();
                 });
+
+                GameManager.Instance.MoveCameraToCrusher();
             }
             //else
             //{
@@ -56,12 +70,12 @@ public class MoveOnClick : MonoBehaviour
         {
             if (isOnTarget == false)
             {
-                HandController.Instance.HideHandPanel();
+                //HandController.Instance.HideHandPanel();
 
                 transform.DOMove(targetPos, 0.4f).OnComplete(() => {
                     isOnTarget = true;
                     AllBools.Instance.isCupLocked = true;
-                    GameManager.Instance.ShowNextButton();
+                    //GameManager.Instance.ShowNextButton();
                 });
             }
             //else
@@ -72,24 +86,31 @@ public class MoveOnClick : MonoBehaviour
             //}
         }
 
-        if (obj == ObjectType.popsicle && AllBools.Instance.isPopsicleLocked == false)
+        if (obj == ObjectType.popsicle /*&& AllBools.Instance.isPopsicleLocked == false*/)
         {
             if (isOnTarget == false)
             {
-                HandController.Instance.HideHandPanel();
-                GameManager.Instance.FadeScreen();
+                //HandController.Instance.HideHandPanel();
+                //GameManager.Instance.FadeScreen();
 
                 transform.DOMove(targetPos, 0.4f).OnComplete(() => {
                     isOnTarget = true;
-                    //AllBools.Instance.isPopsicleLocked = true;
+                    AllBools.Instance.isPopsicleLocked = false;
+
+                    GameManager.Instance.ReadyToSculpt();
                     //GameManager.Instance.ShowNextButton();
-                    AllBools.Instance.isReadyForPaint  = true;
+                    //AllBools.Instance.isReadyForPaint  = true;
                 });
 
                 transform.parent = popsicleParent.transform;
+                //p.opsicleParent.GetComponent<Popsicle>().enabled = true;
 
                 //transform.DORotate(new Vector3(-240, 0, 0), 0.4f);
-                transform.rotation = Quaternion.Euler(-240, 0, 0);
+                transform.localScale = new Vector3(1, 1, 1);
+                transform.rotation = Quaternion.Euler(90, 0, 0);
+
+                GameManager.Instance.MoveCameraToPopsicle();
+                GameManager.Instance.MoveLightPaint();
             }
             //else
             //{

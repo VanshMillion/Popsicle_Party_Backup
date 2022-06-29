@@ -23,7 +23,7 @@ namespace Es.InkPainter.Sample
 			++waitCount;
 		}
 
-		public void OnCollisionStay(Collision collision)
+		public void OnCollisionEnter(Collision collision)
 		{
 			if(waitCount < wait)
 				return;

@@ -507,10 +507,10 @@ MonoBehaviour:
   useNormalMapFluid: 1
   createTextureSize: 1024
   colorSynthesis: 1
-  alpha: 0.5
+  alpha: 0.6
   flowDirection: {x: 0, y: 1}
   flowingForce: 1
-  easeOfDripping: 1.5
+  easeOfDripping: 0.6
   influenceOfNormal: 1
   horizontalSpread: 0.01
   normalScaleFactor: 1
