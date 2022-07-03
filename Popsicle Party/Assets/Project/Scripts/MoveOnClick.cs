@@ -55,6 +55,7 @@ public class MoveOnClick : MonoBehaviour
                     //HandController.Instance.HandleClick();
                 });
 
+                //GameManager.Instance.HideNextButton();
                 GameManager.Instance.MoveCameraToCrusher();
             }
             //else
@@ -108,6 +109,7 @@ public class MoveOnClick : MonoBehaviour
                 //transform.DORotate(new Vector3(-240, 0, 0), 0.4f);
                 transform.localScale = new Vector3(1, 1, 1);
                 transform.rotation = Quaternion.Euler(90, 0, 0);
+                //ModeChanger.Instance.ChangeMode();
 
                 GameManager.Instance.MoveCameraToPopsicle();
                 GameManager.Instance.MoveLightPaint();

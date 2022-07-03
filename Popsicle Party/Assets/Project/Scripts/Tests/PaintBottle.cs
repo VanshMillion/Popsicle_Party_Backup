@@ -5,6 +5,8 @@ public class PaintBottle : MonoBehaviour
     [SerializeField] private float movementSpeed;
     [SerializeField] Vector3 moveLimits;
 
+    [SerializeField] ParticleSystem paintParticle;
+
     float hor;
     float ver;
 
@@ -31,13 +33,16 @@ public class PaintBottle : MonoBehaviour
         //isMoving = Input.GetMouseButton(0) || Input.touchCount > 0;
         if (Application.platform == RuntimePlatform.Android)
         {
-            if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Moved)
+            if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 isMoving = true;
+                paintParticle.Emit(10);
+                //Invoke("EmitPaint", 0.6f);
             }
             else
             {
                 isMoving = false;
+                paintParticle.Stop();
             }
         }
         else
@@ -45,10 +50,13 @@ public class PaintBottle : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 isMoving = true;
+                paintParticle.Emit(10);
+                //Invoke("EmitPaint", 0.6f);
             }
             else
             {
                 isMoving = false;
+                paintParticle.Stop();
             }
         }
 
@@ -68,5 +76,10 @@ public class PaintBottle : MonoBehaviour
     {
         if (isMoving)
             transform.position = targetPos;
+    }
+
+    void EmitPaint()
+    {
+        paintParticle.Emit(5);
     }
 }

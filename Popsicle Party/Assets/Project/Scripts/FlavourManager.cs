@@ -9,6 +9,8 @@ public class FlavourManager : MonoBehaviour
 
     [SerializeField] Color color;
     [SerializeField] Material paintParticleMat;
+    [SerializeField] MeshRenderer paintBottleMesh;
+    [SerializeField] Material bottleColorMat;
     //[SerializeField] Renderer snowRenderer;
 
     //[Range(0, 6)]
@@ -20,5 +22,7 @@ public class FlavourManager : MonoBehaviour
     {
         paintParticleMat.color = color;
         brush.Color = color;
+
+        paintBottleMesh.material = bottleColorMat;
     }
 }

@@ -86,6 +86,6 @@ Material:
     - _ZWrite: 1
     - _isToggled: 0
     m_Colors:
-    - _Color: {r: 0.9056604, g: 0.67016804, b: 0.31185475, a: 1}
+    - _Color: {r: 0, g: 1.2426105, b: 1.7169812, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FlowDirection: {r: 0, g: 0.4, b: 0, a: 0}

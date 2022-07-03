@@ -23,14 +23,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject stick;
 
-    //[SerializeField] GameObject nextButton;
-    //[SerializeField] GameObject eraseButton;
-    //[SerializeField] GameObject doneButton;
-
     [SerializeField] GameObject preparePanel;
     [SerializeField] GameObject iceTubButton;
     [SerializeField] GameObject glassButton;
-    [SerializeField] GameObject stickButton;
+    [SerializeField] GameObject stickPanel;
     [SerializeField] GameObject nextButton;
     [SerializeField] GameObject modeButton;
     //[SerializeField] GameObject paintPanel;
@@ -80,6 +76,7 @@ public class GameManager : MonoBehaviour
     {
         Vector3 targetPos = new Vector3();
         targetPos = propsParent.transform.position + propPosOffset;
+        MoveCameraToLid();
 
         propsParent.transform.DOMove(targetPos, 0.4f).OnComplete(() =>
         {
@@ -92,9 +89,26 @@ public class GameManager : MonoBehaviour
         //    stickZoneObj.SetActive(true);
         //}
 
-        //HideNextButton();
+        HideNextButton();
 
         //propsParent.transform.position += propPosOffset;
+    }
+
+    private IEnumerator HideShowNextButton()
+    {
+        HideNextButton();
+        yield return new WaitForSeconds(3.5f);
+        ShowNextButton();
+    }
+
+    public void HideNextButton()
+    {
+        nextButton.SetActive(false);
+    }
+
+    public void ShowNextButton()
+    {
+        nextButton.SetActive(true);
     }
 
     public void AddIce()
@@ -102,20 +116,27 @@ public class GameManager : MonoBehaviour
         scoopAnim.SetTrigger("move");
 
         iceTubButton.SetActive(false);
+        StartCoroutine("HideShowNextButton");
         glassButton.SetActive(false);
-        stickButton.SetActive(true);
+        stickPanel.SetActive(true);
         preparePanel.SetActive(false);
     }
 
     public void MoveCameraToCrusher()
     {
-        mainCam.transform.DOMove(new Vector3(0, 4.55f, -2.1f), 0.4f);
+        mainCam.transform.DOMove(new Vector3(0, 4.5f, -1.5f), 0.4f);
         mainCam.transform.rotation = Quaternion.Euler(13, 0, 0);
+    }
+
+    public void MoveCameraToLid()
+    {
+        mainCam.transform.DOMove(new Vector3(0, 4.8f, -2.2f), 0.4f);
+        mainCam.transform.rotation = Quaternion.Euler(18, 0, 0);
     }
 
     public void MoveCameraToPopsicle()
     {
-        mainCam.transform.DOMove(new Vector3(0, 13.5f, -13.2f), 0.6f);
+        mainCam.transform.DOMove(new Vector3(0, 13.5f, -13.2f), 0.5f);
         mainCam.transform.rotation = Quaternion.Euler(90, 0, 0);
     }
 
@@ -142,10 +163,10 @@ public class GameManager : MonoBehaviour
 
     public void MoveStick()
     {
-        stick.transform.DOMove(new Vector3(0, 4.55f, -14f), 0.3f);
+        stick.transform.DOMove(new Vector3(0, 4.55f, -13.8f), 0.3f);
         stick.transform.parent = popsicleObj.transform;
 
-        stickButton.SetActive(false);
+        stickPanel.SetActive(false);
         preparePanel.SetActive(false);
 
         nextButton.SetActive(false);

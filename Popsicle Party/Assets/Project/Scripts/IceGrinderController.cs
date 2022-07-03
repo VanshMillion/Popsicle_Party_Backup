@@ -46,17 +46,17 @@ public class IceGrinderController : MonoBehaviour
     {
         if (snowObj.transform.localScale.x < maxSize.x)
         {
-            snowObj.transform.localScale += new Vector3(0.0003f, 0, 0);
+            snowObj.transform.localScale += new Vector3(0.0009f, 0, 0);
         }
 
         if (snowObj.transform.localScale.y < maxSize.y)
         {
-            snowObj.transform.localScale += new Vector3(0, 0.0003f, 0);
+            snowObj.transform.localScale += new Vector3(0, 0.0009f, 0);
         }
 
         if (snowObj.transform.localScale.z < maxSize.z)
         {
-            snowObj.transform.localScale += new Vector3(0, 0, 0.001f);
+            snowObj.transform.localScale += new Vector3(0, 0, 0.003f);
         }
     }
 

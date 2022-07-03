@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class ModeChanger : MonoBehaviour
 {
+    public static ModeChanger Instance;
+
     [SerializeField] GameObject paintObj;
     [SerializeField] GameObject shapeObj;
     [SerializeField] GameObject outlineObj;
+    [SerializeField] GameObject modeButton;
+    [SerializeField] GameObject doneButton;
 
     [SerializeField] GameObject paintPanel;
 
@@ -14,17 +18,27 @@ public class ModeChanger : MonoBehaviour
 
     bool canPaint;
 
+    void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
     void Start()
     {
-        canPaint = true;
+        canPaint = false;
+        //canPaint = true;
 
-        ChangeMode();
+        //ChangeMode();
+
+        paintObj.SetActive(false);
+        shapeObj.SetActive(false);
     }
 
     public void ChangeMode()
     {
-        canPaint = !canPaint;
-
         if (canPaint == true)
         {
             paintPanel.SetActive(true);
@@ -35,6 +49,9 @@ public class ModeChanger : MonoBehaviour
             popsicle.rotationDuration = 0.2f;
             //popsicleMeshCol.enabled = true;
             //colliderParent.SetActive(false);
+
+            modeButton.SetActive(false);
+            doneButton.SetActive(true);
         }
         else
         {
@@ -43,9 +60,11 @@ public class ModeChanger : MonoBehaviour
             shapeObj.SetActive(true);
             //outlineObj.SetActive(true);
 
-            popsicle.rotationDuration = 0.8f;
+            popsicle.rotationDuration = 0.6f;
             //popsicleMeshCol.enabled = false;
             //colliderParent.SetActive(true);
         }
+
+        canPaint = !canPaint;
     }
 }
