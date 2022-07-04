@@ -44,7 +44,7 @@ public class ModeChanger : MonoBehaviour
             paintPanel.SetActive(true);
             paintObj.SetActive(true);
             shapeObj.SetActive(false);
-            //outlineObj.SetActive(false);
+            outlineObj.SetActive(false);
 
             popsicle.rotationDuration = 0.2f;
             //popsicleMeshCol.enabled = true;
@@ -58,7 +58,7 @@ public class ModeChanger : MonoBehaviour
             paintPanel.SetActive(false);
             paintObj.SetActive(false);
             shapeObj.SetActive(true);
-            //outlineObj.SetActive(true);
+            outlineObj.SetActive(true);
 
             popsicle.rotationDuration = 0.6f;
             //popsicleMeshCol.enabled = false;

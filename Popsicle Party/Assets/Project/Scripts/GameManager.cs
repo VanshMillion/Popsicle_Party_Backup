@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField] GameObject propsParent;
+    [SerializeField] GameObject shapeParent;
+    int randomShapeNum;
 
     [SerializeField] Animator scoopAnim;
     //[SerializeField] GameObject iceHolder;
@@ -29,7 +31,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject stickPanel;
     [SerializeField] GameObject nextButton;
     [SerializeField] GameObject modeButton;
-    //[SerializeField] GameObject paintPanel;
+    [SerializeField] GameObject popsiclePanel;
+
+    [SerializeField] GameObject paintBottle;
+    [SerializeField] GameObject blurBG;
+    [SerializeField] GameObject simpleWinPanel;
+    [SerializeField] GameObject paintPanel;
     //[SerializeField] GameObject winPanel;
     //[SerializeField] GameObject fadePanel;
 
@@ -49,6 +56,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        randomShapeNum = Random.Range(0, 4);
+
         //HideNextButton();
 
         //eraseButton.SetActive(false);
@@ -92,6 +101,14 @@ public class GameManager : MonoBehaviour
         HideNextButton();
 
         //propsParent.transform.position += propPosOffset;
+    }
+
+    public void SelectShape()
+    {
+        GameObject randomChild = shapeParent.transform.GetChild(randomShapeNum).gameObject;
+        Debug.Log(randomChild.name);
+
+        randomChild.gameObject.SetActive(true);
     }
 
     private IEnumerator HideShowNextButton()
@@ -140,6 +157,11 @@ public class GameManager : MonoBehaviour
         mainCam.transform.rotation = Quaternion.Euler(90, 0, 0);
     }
 
+    public void MoveCameraForResult()
+    {
+        mainCam.transform.DOMove(new Vector3(0, 13.5f, -12.6f), 0.2f);
+    }
+
     public void MoveLightSimple()
     {
         directionalLight.transform.rotation = Quaternion.Euler(55, 15, 0);
@@ -171,6 +193,18 @@ public class GameManager : MonoBehaviour
 
         nextButton.SetActive(false);
         modeButton.SetActive(true);
+    }
+
+    public void ShowResult()
+    {
+        popsiclePanel.SetActive(false);
+        paintPanel.SetActive(false);
+        paintBottle.SetActive(false);
+
+        blurBG.SetActive(true);
+        simpleWinPanel.SetActive(true);
+
+        MoveCameraForResult();
     }
 
     //public void ShowPaintStuffs()
@@ -248,5 +282,21 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void NextLevel()
+    {
+        if(SceneManager.GetActiveScene().buildIndex != 4)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex/* + 1*/);
+        }
+        //else
+        //{
+        //    SceneManager.LoadScene(0);
+        //}
+
+        LevelUIManager.Instance.levelCount++;
+        PlayerPrefs.SetInt("Level", LevelUIManager.Instance.levelCount);
+        PlayerPrefs.Save();
     }
 }

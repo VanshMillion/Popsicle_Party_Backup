@@ -14,9 +14,9 @@ public class Coll : MonoBehaviour
 
     public void HitCollider(float damage)
     {
-        // Resize the collider's height(X) depends on "damage" 
+        // Resize the collider's height(Y) depends on "damage" 
         if (boxCollider.size.x - damage > 0.0f)
-            boxCollider.size = new Vector3(boxCollider.size.x - damage, boxCollider.size.y, boxCollider.size.z - damage);
+            boxCollider.size = new Vector3(boxCollider.size.x - damage, boxCollider.size.y, boxCollider.size.z);
         else
             Destroy(this); // Remove Coll Component from this gameobject
     }

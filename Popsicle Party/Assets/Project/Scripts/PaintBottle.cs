@@ -33,7 +33,7 @@ public class PaintBottle : MonoBehaviour
         //isMoving = Input.GetMouseButton(0) || Input.touchCount > 0;
         if (Application.platform == RuntimePlatform.Android)
         {
-            if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began)
+            if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Moved)
             {
                 isMoving = true;
                 paintParticle.Emit(10);
@@ -41,8 +41,11 @@ public class PaintBottle : MonoBehaviour
             }
             else
             {
-                isMoving = false;
-                paintParticle.Stop();
+                if(Input.GetTouch(0).phase == TouchPhase.Ended)
+                {
+                    isMoving = false;
+                    paintParticle.Stop();
+                }
             }
         }
         else
