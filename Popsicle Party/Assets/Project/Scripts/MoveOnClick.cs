@@ -53,9 +53,12 @@ public class MoveOnClick : MonoBehaviour
                     transform.parent = lidParent.transform;
                     //AllBools.Instance.isLidLocked = true;
                     //HandController.Instance.HandleClick();
+                    //HandController.Instance.HandleClick();
+                    GameManager.Instance.ShowRotator();
                 });
 
                 //GameManager.Instance.HideNextButton();
+                HandController.Instance.HideHandPanel();
                 GameManager.Instance.MoveCameraToCrusher();
             }
             //else
@@ -110,6 +113,8 @@ public class MoveOnClick : MonoBehaviour
                 transform.localScale = new Vector3(1, 1, 1);
                 transform.rotation = Quaternion.Euler(90, 0, 0);
                 //ModeChanger.Instance.ChangeMode();
+
+                HandController.Instance.HideHandPanel();
 
                 GameManager.Instance.MoveCameraToPopsicle();
                 GameManager.Instance.MoveLightPaint();

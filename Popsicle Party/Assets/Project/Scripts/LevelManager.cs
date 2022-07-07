@@ -4,7 +4,10 @@ public class LevelManager : MonoBehaviour
 {
     void Start()
     {
-        GameManager.Instance.SelectShape();
+        //if(LevelUIManager.Instance.levelCount > 4)
+        //{
+        //    GameManager.Instance.SelectShape();
+        //}
 
         LevelUIManager.Instance.ChangeAllUIs();
     }

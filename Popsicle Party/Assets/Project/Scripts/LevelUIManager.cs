@@ -6,8 +6,10 @@ public class LevelUIManager : MonoBehaviour
 {
     public static LevelUIManager Instance;
 
-    [HideInInspector] public int levelCount;
+    [HideInInspector] public int coinCount;
+    [SerializeField] TMP_Text coinCountText;
 
+    [HideInInspector] public int levelCount;
     [SerializeField] TMP_Text levelCountText;
 
     void Awake()
@@ -35,7 +37,17 @@ public class LevelUIManager : MonoBehaviour
             levelCount = 1;
         }
 
+        if (PlayerPrefs.HasKey("Coin"))
+        {
+            coinCount = PlayerPrefs.GetInt("Coin");
+        }
+        else
+        {
+            coinCount = 0;
+        }
+
         //ChangeAllUIs();
+        ChangeCoinUI();
     }
 
     public void ChangeAllUIs()
@@ -48,5 +60,10 @@ public class LevelUIManager : MonoBehaviour
         {
             levelCountText.text = "LEVEL " + levelCount.ToString();
         }
+    }
+
+    public void ChangeCoinUI()
+    {
+        coinCountText.text = coinCount.ToString();
     }
 }

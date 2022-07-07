@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject propsParent;
     [SerializeField] GameObject shapeParent;
     int randomShapeNum;
+
+    [SerializeField] RotateOnClick handleRotator;
 
     [SerializeField] Animator scoopAnim;
     //[SerializeField] GameObject iceHolder;
@@ -28,10 +31,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject preparePanel;
     [SerializeField] GameObject iceTubButton;
     [SerializeField] GameObject glassButton;
+    [SerializeField] GameObject rotatePanel;
+    [SerializeField] TMP_Text rotatorText;
     [SerializeField] GameObject stickPanel;
     [SerializeField] GameObject nextButton;
     [SerializeField] GameObject modeButton;
     [SerializeField] GameObject popsiclePanel;
+
+    [HideInInspector] GameObject levelCanvas;
 
     [SerializeField] GameObject paintBottle;
     [SerializeField] GameObject blurBG;
@@ -56,7 +63,19 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        levelCanvas = FindObjectOfType<LevelUIManager>().gameObject;
+
         randomShapeNum = Random.Range(0, 4);
+
+        popsicleObj.GetComponent<MeshCollider>().enabled = false;
+        rotatePanel.SetActive(false);
+
+        rotatorText.text = "TAP TO GRIND".ToString();
+
+        //for (int i = 0; i < shapeParent.transform.childCount; i++)
+        //{
+        //    shapeParent.transform.GetChild(i).gameObject.SetActive(false);
+        //}
 
         //HideNextButton();
 
@@ -81,6 +100,11 @@ public class GameManager : MonoBehaviour
         //}
     }
 
+    public void EnablePopsicleCol()
+    {
+        popsicleObj.GetComponent<MeshCollider>().enabled = true;
+    }
+
     public void MoveProps()
     {
         Vector3 targetPos = new Vector3();
@@ -91,6 +115,7 @@ public class GameManager : MonoBehaviour
         {
             //HandController.Instance.StickSwipe();
             //preparePanel.SetActive(true);
+            HandController.Instance.LidClick();
         });
 
         //if(stickZoneObj.activeInHierarchy == false)
@@ -130,6 +155,8 @@ public class GameManager : MonoBehaviour
 
     public void AddIce()
     {
+        HandController.Instance.HideHandPanel();
+
         scoopAnim.SetTrigger("move");
 
         iceTubButton.SetActive(false);
@@ -153,7 +180,7 @@ public class GameManager : MonoBehaviour
 
     public void MoveCameraToPopsicle()
     {
-        mainCam.transform.DOMove(new Vector3(0, 13.5f, -13.2f), 0.5f);
+        mainCam.transform.DOMove(new Vector3(0, 13.5f, -13f), 0.5f);
         mainCam.transform.rotation = Quaternion.Euler(90, 0, 0);
     }
 
@@ -164,12 +191,45 @@ public class GameManager : MonoBehaviour
 
     public void MoveLightSimple()
     {
-        directionalLight.transform.rotation = Quaternion.Euler(55, 15, 0);
+        directionalLight.transform.rotation = Quaternion.Euler(55, 30, 0);
     }
 
     public void MoveLightPaint()
     {
         directionalLight.transform.rotation = Quaternion.Euler(70, 60, 0);
+    }
+
+    public void ShowRotator()
+    {
+        rotatePanel.SetActive(true);
+    }
+
+    public void HideRotator()
+    {
+        rotatePanel.SetActive(false);
+
+    }
+
+    public IEnumerator HandleRotatorState()
+    {
+        if(AllBools.Instance.isHandleMoving == false)
+        {
+            HideRotator();
+            handleRotator.RotateObject();
+            yield return new WaitForSeconds(3.0f);
+            rotatorText.text = "TAP TO STOP".ToString();
+            ShowRotator();
+        }
+        else
+        {
+            HideRotator();
+            handleRotator.StopObject();
+        }
+    }
+
+    public void RotatorButton()
+    {
+        StartCoroutine("HandleRotatorState");
     }
 
     public void ReadyToSculpt()
@@ -185,7 +245,7 @@ public class GameManager : MonoBehaviour
 
     public void MoveStick()
     {
-        stick.transform.DOMove(new Vector3(0, 4.55f, -13.8f), 0.3f);
+        stick.transform.DOMove(new Vector3(0, 4.55f, -14f), 0.3f);
         stick.transform.parent = popsicleObj.transform;
 
         stickPanel.SetActive(false);
@@ -200,6 +260,7 @@ public class GameManager : MonoBehaviour
         popsiclePanel.SetActive(false);
         paintPanel.SetActive(false);
         paintBottle.SetActive(false);
+        levelCanvas.SetActive(false);
 
         blurBG.SetActive(true);
         simpleWinPanel.SetActive(true);
@@ -286,17 +347,31 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
-        if(SceneManager.GetActiveScene().buildIndex != 4)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex/* + 1*/);
-        }
-        //else
-        //{
-        //    SceneManager.LoadScene(0);
-        //}
-
         LevelUIManager.Instance.levelCount++;
         PlayerPrefs.SetInt("Level", LevelUIManager.Instance.levelCount);
         PlayerPrefs.Save();
+
+        LevelUIManager.Instance.coinCount += 30;
+        PlayerPrefs.SetInt("Coin", LevelUIManager.Instance.coinCount);
+        PlayerPrefs.Save();
+        LevelUIManager.Instance.ChangeCoinUI();
+
+        levelCanvas.SetActive(true);
+
+        if (SceneManager.GetActiveScene().buildIndex != 3)
+        {
+            //if(LevelUIManager.Instance.levelCount < 4)
+            //{
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            //}
+            //else
+            //{
+            //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //}
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }

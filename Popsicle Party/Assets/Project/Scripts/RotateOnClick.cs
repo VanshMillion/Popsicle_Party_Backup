@@ -38,21 +38,34 @@ public class RotateOnClick : MonoBehaviour
         }
     }
 
-    void OnMouseDown()
+    //void OnMouseDown()
+    //{
+    //    if (AllBools.Instance.isHandleMoving == false /*&& AllBools.Instance.isLidLocked == true*/)
+    //    {
+    //        RotateObject();
+    //    }
+    //    //else
+    //    //{
+    //    //    StopObject();
+    //    //}
+    //}
+
+    public void RotateObject()
     {
-        if (AllBools.Instance.isHandleMoving == false /*&& AllBools.Instance.isLidLocked == true*/)
-        {
-            AllBools.Instance.isHandleMoving = true;
-            speed = 80.0f;
-            IceGrinderController.Instance.GrinderRunning();
-            //HandController.Instance.HideHandPanel();
-        }
-        else
-        {
-            AllBools.Instance.isHandleMoving = false;
-            speed = 0;
-            IceGrinderController.Instance.GrinderStop();
-            //HandController.Instance.CupClick();
-        }
+        AllBools.Instance.isHandleMoving = true;
+        speed = 80.0f;
+        IceGrinderController.Instance.GrinderRunning();
+        //HandController.Instance.HideHandPanel();
+        HandController.Instance.HideHandPanel();
+    }
+
+    public void StopObject()
+    {
+        AllBools.Instance.isHandleMoving = false;
+        speed = 0;
+        IceGrinderController.Instance.GrinderStop();
+        //HandController.Instance.CupClick();
+        HandController.Instance.CupClick();
+        GameManager.Instance.EnablePopsicleCol();
     }
 }

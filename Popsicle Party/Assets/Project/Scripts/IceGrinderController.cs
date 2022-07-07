@@ -9,6 +9,8 @@ public class IceGrinderController : MonoBehaviour
     [SerializeField] ParticleSystem snowParticle;
     [SerializeField] GameObject snowObj;
 
+    [SerializeField] RotateOnClick handleRotator;
+
     //[SerializeField] MoveOnClick moveOnClick;
 
     private Vector3 maxSize = new Vector3(0.16f, 0.2f, 0.16f);
@@ -62,15 +64,17 @@ public class IceGrinderController : MonoBehaviour
 
     //void StopIncreasingSize()
     //{
-    //    if(snowObj.transform.localScale.z > 0.9f && AllBools.Instance.isCupLocked == true)
+    //    if (snowObj.transform.localScale.y > 0.2f && AllBools.Instance.isHandleMoving == true)
     //    {
-    //        if(AllBools.Instance.isHandleMoving == true)
-    //        {
-    //            HandController.Instance.CupClick();
-    //        }
+    //        //if (AllBools.Instance.isHandleMoving == true)
+    //        //{
+    //        //    HandController.Instance.CupClick();
+    //        //}
 
-    //        AllBools.Instance.isHandleMoving = false;
-    //        AllBools.Instance.isCupLocked = false;
+    //        //AllBools.Instance.isHandleMoving = false;
+    //        //AllBools.Instance.isCupLocked = false;
+
+    //        handleRotator.StopObject();
     //    }
     //}
 }

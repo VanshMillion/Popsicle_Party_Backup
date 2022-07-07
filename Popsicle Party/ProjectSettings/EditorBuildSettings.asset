@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Project/Scenes/GPScene.unity
-    guid: 5f4c866f4ad795c4f9c52c3acf4318d4
+    path: Assets/Project/Scenes/Level 1.unity
+    guid: 7d1574083fff9ab40a63095722a27fba
+  - enabled: 1
+    path: Assets/Project/Scenes/Level 2.unity
+    guid: 8b129c5afa20af34891b466106c75da6
+  - enabled: 1
+    path: Assets/Project/Scenes/Level 3.unity
+    guid: 6590aafd9fcd5ca48924fbf7e46e10dc
+  - enabled: 1
+    path: Assets/Project/Scenes/Level 4.unity
+    guid: 7b356461a5b8d9f488fee34654b4044f
   m_configObjects: {}
